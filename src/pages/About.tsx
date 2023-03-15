@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class About extends React.PureComponent {
+class About extends React.PureComponent {
   render() {
     return <div>About</div>;
   }
 }
+export default About;

@@ -1,5 +1,5 @@
 .formSection {
-  padding: calc(64px + 1.5rem) 0;
+  padding: 24px 0;
   display: flex;
   justify-content: center;
 }

@@ -39,7 +39,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     this.setState({ value: event.target.value });
     console.log(event.target.value);
   };
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
   };
 
@@ -49,6 +49,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   };
 
   render() {
+    console.log(this.state.value);
     return (
       <section className={styles.formSection}>
         <div className="container">

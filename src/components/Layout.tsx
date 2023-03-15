@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import CardList from "./CardList";
+import Blog from "../pages/Blog";
 
 interface LayoutProps {}
 
@@ -18,16 +19,9 @@ class Layout extends React.PureComponent<LayoutProps> {
         </header>
         <main>
           <div className="container">
-            <SearchBar />
-            <CardList />
             <Outlet />
           </div>
         </main>
-        <footer className="footer">
-          <div className="container">
-            <h2>Footer</h2>
-          </div>
-        </footer>
       </>
     );
   }
