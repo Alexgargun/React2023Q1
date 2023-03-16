@@ -61,7 +61,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
               <input
                 className={styles.searchInput}
                 type="search"
-                placeholder={"type to search..."}
+                placeholder={"search"}
                 value={this.state.value}
                 onChange={this.handleChange}
               />

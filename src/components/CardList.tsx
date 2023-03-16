@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, useSearchParams } from "react-router-dom";
 
 interface Coffee {
   id: number;
@@ -10,12 +9,7 @@ interface Coffee {
 
 interface State {
   data: Coffee[];
-  // searchParams: URLSearchParams;
 }
-
-// interface SearchParams {
-//   post: string;
-// }
 
 interface CardListProps {
   searchInput: string;
@@ -25,19 +19,8 @@ class CardList extends React.Component<CardListProps, State> {
     super(props);
     this.state = {
       data: [],
-      // searchParams: new URLSearchParams(),
     };
   }
-
-  // handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const target = e.target as typeof e.target & {
-  //     search: { value: string };
-  //   };
-  //   const searchParams = new URLSearchParams();
-  //   searchParams.set("post", target.search.value);
-  //   this.setState({ searchParams });
-  // };
 
   async componentDidMount() {
     const resp = await fetch("https://api.sampleapis.com/coffee/hot");

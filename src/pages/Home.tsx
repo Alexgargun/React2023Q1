@@ -15,7 +15,8 @@ export default class Home extends React.Component<{}, HomeState> {
     };
   }
   getSearchInput = (input: string) => {
-    this.setState({ searchInput: input });
+    const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1);
+    this.setState({ searchInput: capitalizedInput });
   };
 
   render() {
