@@ -1,8 +1,5 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import SearchBar from "./SearchBar";
-import CardList from "./CardList";
-import Blog from "../pages/Blog";
 
 interface LayoutProps {}
 

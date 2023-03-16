@@ -5,9 +5,7 @@ export default class Header extends React.PureComponent {
   render() {
     return (
       <section className={styles.section}>
-        <div className="container">
-          <h2>Home Page</h2>
-        </div>
+        <h2>Home Page</h2>
       </section>
     );
   }

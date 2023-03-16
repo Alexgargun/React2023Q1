@@ -3,7 +3,9 @@ import styles from "../styles/SearchBar.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdClear } from "react-icons/md";
 
-interface SearchBarProps {}
+interface SearchBarProps {
+  getSearchInput: (input: string) => void;
+}
 
 interface SearchBarState {
   value: string;
@@ -11,7 +13,7 @@ interface SearchBarState {
 
 class SearchBar extends Component<SearchBarProps, SearchBarState> {
   private formRef = React.createRef<HTMLFormElement>();
-  constructor(props: SearchBarProps) {
+  constructor(props: SearchBarProps, {}) {
     super(props);
 
     this.state = {
@@ -41,6 +43,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   };
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    this.props.getSearchInput(this.state.value);
   };
 
   handleClear = () => {
@@ -58,7 +61,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
               <input
                 className={styles.searchInput}
                 type="search"
-                placeholder={"search"}
+                placeholder={"type to search..."}
                 value={this.state.value}
                 onChange={this.handleChange}
               />
