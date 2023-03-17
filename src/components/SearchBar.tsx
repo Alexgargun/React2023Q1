@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "../styles/SearchBar.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdClear } from "react-icons/md";
 
 interface SearchBarProps {
   getSearchInput: (input: string) => void;
@@ -65,14 +64,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              <button type="reset">
-                <MdClear
-                  className={styles.clearIcon}
-                  onClick={this.handleClear}
-                />
-              </button>
             </label>
-            <span className={styles.line}></span>
             <button type="submit">
               <AiOutlineSearch className={styles.searchIcon} />
             </button>

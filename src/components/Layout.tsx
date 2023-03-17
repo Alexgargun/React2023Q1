@@ -7,13 +7,13 @@ class Layout extends React.PureComponent<LayoutProps> {
   render(): JSX.Element {
     return (
       <>
-        <header className="header">
+        <nav className="header">
           <div className="container">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/blog">Blog</NavLink>
           </div>
-        </header>
+        </nav>
         <main>
           <div className="container">
             <Outlet />

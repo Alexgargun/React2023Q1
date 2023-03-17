@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import SearchBar from "../components/SearchBar";
 import CardList from "../components/CardList";
-import Header from "../components/Header";
 
 interface HomeState {
   searchInput: string;
@@ -22,7 +21,9 @@ export default class Home extends React.Component<{}, HomeState> {
   render() {
     return (
       <>
-        <Header />
+        <div className="header-title">
+          <h2>Home Page</h2>
+        </div>
         <SearchBar getSearchInput={this.getSearchInput} />
         <CardList searchInput={this.state.searchInput} />
       </>

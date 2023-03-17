@@ -1,7 +1,13 @@
 import React from "react";
 
-export default class NotFound extends React.PureComponent {
+class NotFound extends React.PureComponent {
   render() {
-    return <div>404 Not Found</div>;
+    return (
+      <div className="notFound-section">
+        <h2>404 Not Found</h2>
+      </div>
+    );
   }
 }
+
+export default NotFound;
