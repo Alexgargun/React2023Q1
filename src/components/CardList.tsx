@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Coffee {
   id: number;
@@ -23,7 +23,7 @@ class CardList extends React.Component<CardListProps, State> {
   }
 
   async componentDidMount() {
-    const resp = await fetch("https://api.sampleapis.com/coffee/hot");
+    const resp = await fetch('https://api.sampleapis.com/coffee/hot');
     const json = await resp.json();
     this.setState({ data: json });
   }

@@ -1,16 +1,19 @@
-import React from "react";
-import SearchBar from "../components/SearchBar";
-import CardList from "../components/CardList";
+import React from 'react';
+import SearchBar from '../components/SearchBar';
+import CardList from '../components/CardList';
 
+interface HomeProps {
+  className?: string;
+}
 interface HomeState {
   searchInput: string;
 }
 
-export default class Home extends React.Component<{}, HomeState> {
-  constructor(props: {}) {
+class Home extends React.Component<HomeProps, HomeState> {
+  constructor(props: Record<string, never>) {
     super(props);
     this.state = {
-      searchInput: "",
+      searchInput: '',
     };
   }
   getSearchInput = (input: string) => {
@@ -30,3 +33,4 @@ export default class Home extends React.Component<{}, HomeState> {
     );
   }
 }
+export default Home;

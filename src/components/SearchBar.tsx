@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import styles from "../styles/SearchBar.module.css";
-import { AiOutlineSearch } from "react-icons/ai";
+import React, { Component } from 'react';
+import styles from '../styles/SearchBar.module.css';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 interface SearchBarProps {
   getSearchInput: (input: string) => void;
@@ -16,12 +16,12 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     super(props);
 
     this.state = {
-      value: "",
+      value: '',
     };
   }
 
   componentDidMount(): void {
-    const inputValue = localStorage.getItem("search");
+    const inputValue = localStorage.getItem('search');
     if (inputValue) {
       this.setState({ value: inputValue });
     }
@@ -32,7 +32,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     prevState: Readonly<SearchBarState>
   ): void {
     if (prevState.value !== this.state.value) {
-      localStorage.setItem("search", this.state.value);
+      localStorage.setItem('search', this.state.value);
     }
   }
 
@@ -46,7 +46,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   };
 
   handleClear = () => {
-    this.setState({ value: "" });
+    this.setState({ value: '' });
     this.formRef.current?.reset();
   };
 
@@ -60,7 +60,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
               <input
                 className={styles.searchInput}
                 type="search"
-                placeholder={"search"}
+                placeholder={'search'}
                 value={this.state.value}
                 onChange={this.handleChange}
               />
