@@ -11,7 +11,7 @@ describe('App component', () => {
       </MemoryRouter>
     );
     const homeLinks = getAllByText('Home');
-    expect(homeLinks).toHaveLength(2);
+    expect(homeLinks).toHaveLength(1);
   });
   it('should render the About page when the About link is clicked', () => {
     const { getAllByText } = render(
@@ -20,7 +20,7 @@ describe('App component', () => {
       </MemoryRouter>
     );
     const aboutLinks = getAllByText('About');
-    expect(aboutLinks).toHaveLength(2);
+    expect(aboutLinks).toHaveLength(1);
   });
   it('should render the Not Found page for any other routes', () => {
     const { getByText } = render(

@@ -1,11 +1,7 @@
 import React from 'react';
 
-interface Coffee {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-}
+import Coffee from 'models/coffee';
+import SingleItem from './SingleItem';
 
 interface State {
   data: Coffee[];
@@ -29,19 +25,25 @@ class CardList extends React.Component<CardListProps, State> {
   }
 
   render() {
+    if (this.state.data.length === 0) {
+      return (
+        <div className="section">
+          <h2>Loading...</h2>
+        </div>
+      );
+    }
     return (
       <>
         <div className="card">
           {this.state.data
             .filter((el) => el.title.includes(this.props.searchInput))
             .map((item) => (
-              <div className="items-card" key={item.id}>
-                <h2>{item.title}</h2>
-                <div className="items-image">
-                  <img src={item.image} alt={item.title} />
-                </div>
-                <p>{item.description}</p>
-              </div>
+              <SingleItem
+                key={item.id}
+                title={item.title}
+                image={item.image}
+                description={item.description}
+              />
             ))}
         </div>
       </>
