@@ -14,6 +14,7 @@ class Layout extends React.PureComponent<LayoutProps> {
           <div className="container">
             <NavLink to="/">Home</NavLink>
             <NavLink to="about">About</NavLink>
+            <NavLink to="forms">Forms</NavLink>
           </div>
         </nav>
         <main>

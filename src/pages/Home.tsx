@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar';
 import CardList from '../components/CardList';
+// import capitalizeWords from 'utils/constants';
 
 interface HomeProps {
   className?: string;
@@ -13,15 +14,16 @@ class Home extends React.Component<HomeProps, HomeState> {
   constructor(props: Record<string, never>) {
     super(props);
     this.state = {
-      searchInput: '',
+      searchInput: localStorage.getItem('search') || '',
     };
   }
+
   getSearchInput = (input: string) => {
-    const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1);
-    this.setState({ searchInput: capitalizedInput });
+    this.setState({ searchInput: input });
   };
 
   render() {
+    console.log(this.state.searchInput);
     return (
       <>
         <div className="header-title">
