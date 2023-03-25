@@ -4,8 +4,9 @@ type FormState = {
   surname: string;
   email: string;
   dateOfBirth: string;
-  selectGender: string;
-  subscribe: boolean;
+  selectCountry: string;
+  selectGenderMale: string;
+  selectGenderFemale: string;
   termsAndConditions: boolean;
 };
 

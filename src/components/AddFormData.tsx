@@ -1,7 +1,12 @@
 import React, { Component, FormEvent, RefObject } from 'react';
 import styles from '../styles/AddFormData.module.css';
 import FormState from '../models/forms';
-
+import { countries, errorMessages } from '../utils/constants';
+import Dropdown from './Dropdown';
+import NameInput from './NameInput';
+import EmailInput from './EmailInput';
+import SurnameInput from './SurnameInput';
+import DateInput from './DateInput';
 interface FormProps {
   uppdateFormState: (formData: FormState) => void;
 }
@@ -13,24 +18,14 @@ type FormErrors = {
 interface FormStateInterface extends FormState {
   errors: FormErrors;
 }
-
-const errorMessages = {
-  toShort: 'Name should be at least 1 characters',
-  isCapitalized: `Name should be capitalized'`,
-  surname: 'Surname should be at least 3 characters',
-  dateOfBirth: 'Date of birth is required',
-  selectGender: 'Please select a gender',
-  subscribe: 'Please select "Yes" to subscribe',
-  termsAndConditions: 'Please agree to the terms and conditions',
-};
-
 class Forms extends Component<FormProps, FormStateInterface> {
   input: RefObject<HTMLInputElement>;
   surname: React.RefObject<HTMLInputElement>;
   email: RefObject<HTMLInputElement>;
   dateOfBirth: RefObject<HTMLInputElement>;
-  subscribe: RefObject<HTMLInputElement>;
-  selectGender: RefObject<HTMLSelectElement>;
+  selectGenderMale: RefObject<HTMLInputElement>;
+  selectGenderFemale: RefObject<HTMLInputElement>;
+  selectCountry: RefObject<HTMLSelectElement>;
   termsAndConditions: RefObject<HTMLInputElement>;
 
   constructor(props: FormProps) {
@@ -41,13 +36,16 @@ class Forms extends Component<FormProps, FormStateInterface> {
       surname: '',
       email: '',
       dateOfBirth: '',
-      selectGender: '',
-      subscribe: true,
+      selectCountry: '',
+      selectGenderMale: '',
+      selectGenderFemale: '',
       termsAndConditions: false,
       errors: {
         name: '',
         surname: '',
+        email: '',
         dateOfBirth: '',
+        selectCountry: '',
         selectGender: '',
         termsAndConditions: '',
       },
@@ -57,10 +55,19 @@ class Forms extends Component<FormProps, FormStateInterface> {
     this.surname = React.createRef();
     this.email = React.createRef();
     this.dateOfBirth = React.createRef();
-    this.selectGender = React.createRef();
-    this.subscribe = React.createRef();
+    this.selectCountry = React.createRef();
+    this.selectGenderMale = React.createRef();
+    this.selectGenderFemale = React.createRef();
     this.termsAndConditions = React.createRef();
   }
+
+  handleClick = () => {
+    if (this.selectGenderMale.current?.checked) {
+      console.log('Radio 1 is selected');
+    } else if (this.selectGenderFemale.current?.checked) {
+      console.log('Radio 2 is selected');
+    }
+  };
 
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,10 +77,12 @@ class Forms extends Component<FormProps, FormStateInterface> {
       surname: this.surname.current?.value || '',
       email: this.email.current?.value || '',
       dateOfBirth: this.dateOfBirth.current?.value || '',
-      selectGender: this.selectGender.current?.value || '',
-      subscribe: this.subscribe.current?.value === 'yes' || false,
+      selectCountry: this.selectCountry.current?.value || '',
+      selectGender: this.selectGenderMale.current?.value || '',
+      selectGenderFemale: this.selectGenderFemale.current?.value || '',
       termsAndConditions: this.termsAndConditions.current?.checked || false,
     };
+
     let errorNameMessage = '';
     if (formData.name.length < 1) {
       errorNameMessage = errorMessages.toShort;
@@ -91,8 +100,9 @@ class Forms extends Component<FormProps, FormStateInterface> {
       name: errorNameMessage,
       surname: errorSurnameMessage,
       dateOfBirth: !formData.dateOfBirth ? errorMessages.dateOfBirth : '',
-      selectGender: formData.selectGender === 'select' ? errorMessages.selectGender : '',
-      // subscribe: formData.subscribe === false ? errorMessages.subscribe : '',
+      email: !formData.email ? errorMessages.email : '',
+      selectCountry: formData.selectCountry === 'select' ? errorMessages.selectCountry : '',
+      selectGender: formData.selectGender ? errorMessages.selectGender : '',
       termsAndConditions:
         formData.termsAndConditions === false ? errorMessages.termsAndConditions : '',
     };
@@ -111,8 +121,11 @@ class Forms extends Component<FormProps, FormStateInterface> {
       errors: {
         name: '',
         surname: '',
+        email: '',
         dateOfBirth: '',
-        selectGender: '',
+        selectCountry: '',
+        selectGenderMale: '',
+        selectGenderFemale: '',
         termsAndConditions: '',
       },
     });
@@ -128,71 +141,25 @@ class Forms extends Component<FormProps, FormStateInterface> {
             className={styles.formContainer}
             style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '10px' }}
           >
-            <label className={styles.searchLabel}>
-              Name:
-              <input type="text" className={styles.searchInput} ref={this.input} name="name" />
-            </label>
-            {this.state.errors.name && (
-              <span className={styles.error}>{this.state.errors.name}</span>
-            )}
-            <label className={styles.searchLabel}>
-              Surname:
-              <input type="text" className={styles.searchInput} ref={this.surname} name="surname" />
-            </label>
-            {this.state.errors.name && (
-              <span className={styles.error}>{this.state.errors.name}</span>
-            )}
-            <label htmlFor="">
-              Email:
-              <input type="email" className={styles.searchInput} ref={this.email} name="email" />
-            </label>
-            {this.state.errors.name && (
-              <span className={styles.error}>{this.state.errors.name}</span>
-            )}
+            <NameInput inputRef={this.input} error={this.state.errors.name} />
+            <SurnameInput surnameRef={this.surname} error={this.state.errors.surname} />
+            <EmailInput emailRef={this.email} error={this.state.errors.email} />
+            <DateInput dateOfBirthRef={this.dateOfBirth} error={this.state.errors.dateOfBirth} />
+            <Dropdown
+              selectCountryRef={this.selectCountry}
+              countries={[]}
+              error={this.state.errors.selectCountry}
+            />
             <label>
-              Date of Birth:
-              <input type="date" name="dateOfBirth" id="dateOfBirth" ref={this.dateOfBirth} />
+              <input type="radio" name="gender" value="male" ref={this.selectGenderMale} />
+              Male
             </label>
-            {this.state.errors.dateOfBirth && (
-              <span className={styles.error}>{this.state.errors.dateOfBirth}</span>
-            )}
             <label>
-              Gender:
-              <select name="gender" id="gender" ref={this.selectGender} required>
-                <option value="select">--Select--</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              <input type="radio" name="gender" value="female" ref={this.selectGenderFemale} />
+              Female
             </label>
             {this.state.errors.selectGender && (
               <span className={styles.error}>{this.state.errors.selectGender}</span>
-            )}
-            <label>
-              <input
-                type="radio"
-                name="subscribe"
-                value="yes"
-                id="subscribeYes"
-                ref={this.subscribe}
-              />
-              Yes, I want to subscribe to the newsletter
-            </label>
-            {this.state.errors.subscribe && (
-              <span className={styles.error}>{this.state.errors.subscribe}</span>
-            )}
-            <label>
-              <input
-                type="radio"
-                name="subscribe"
-                value="no"
-                id="subscribeNo"
-                ref={this.subscribe}
-              />
-              No, thanks
-            </label>
-            {this.state.errors.subscribe && (
-              <span className={styles.error}>{this.state.errors.subscribe}</span>
             )}
             <label>
               <input

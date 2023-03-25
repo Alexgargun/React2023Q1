@@ -1,0 +1,15 @@
+.dateOfBirthContainer label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.dateOfBirthContainer input[type='date'] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dateOfBirthContainer span {
+  color: red;
+  font-size: 14px;
+}
