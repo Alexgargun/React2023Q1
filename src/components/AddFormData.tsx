@@ -1,12 +1,13 @@
 import React, { Component, FormEvent, RefObject } from 'react';
 import styles from '../styles/AddFormData.module.css';
 import FormState from '../models/forms';
-import { countries, errorMessages } from '../utils/constants';
+import { errorMessages } from '../utils/constants';
 import Dropdown from './Dropdown';
 import NameInput from './NameInput';
 import EmailInput from './EmailInput';
 import SurnameInput from './SurnameInput';
 import DateInput from './DateInput';
+import FileInput from './FileInput';
 interface FormProps {
   uppdateFormState: (formData: FormState) => void;
 }
@@ -14,7 +15,6 @@ interface FormProps {
 type FormErrors = {
   [key: string]: string;
 };
-
 interface FormStateInterface extends FormState {
   errors: FormErrors;
 }
@@ -23,10 +23,12 @@ class Forms extends Component<FormProps, FormStateInterface> {
   surname: React.RefObject<HTMLInputElement>;
   email: RefObject<HTMLInputElement>;
   dateOfBirth: RefObject<HTMLInputElement>;
-  selectGenderMale: RefObject<HTMLInputElement>;
-  selectGenderFemale: RefObject<HTMLInputElement>;
   selectCountry: RefObject<HTMLSelectElement>;
+  selectGender: RefObject<HTMLInputElement>;
   termsAndConditions: RefObject<HTMLInputElement>;
+  selectMale: RefObject<HTMLInputElement>;
+  selectFemale: RefObject<HTMLInputElement>;
+  fileInput: React.RefObject<HTMLInputElement>;
 
   constructor(props: FormProps) {
     super(props);
@@ -37,8 +39,10 @@ class Forms extends Component<FormProps, FormStateInterface> {
       email: '',
       dateOfBirth: '',
       selectCountry: '',
-      selectGenderMale: '',
-      selectGenderFemale: '',
+      selectFemale: '',
+      selectMale: '',
+      selectGender: '',
+      fileInput: new File([''], 'filename'),
       termsAndConditions: false,
       errors: {
         name: '',
@@ -47,6 +51,7 @@ class Forms extends Component<FormProps, FormStateInterface> {
         dateOfBirth: '',
         selectCountry: '',
         selectGender: '',
+        fileInput: '',
         termsAndConditions: '',
       },
     };
@@ -56,18 +61,12 @@ class Forms extends Component<FormProps, FormStateInterface> {
     this.email = React.createRef();
     this.dateOfBirth = React.createRef();
     this.selectCountry = React.createRef();
-    this.selectGenderMale = React.createRef();
-    this.selectGenderFemale = React.createRef();
+    this.selectGender = React.createRef();
+    this.selectMale = React.createRef();
+    this.selectFemale = React.createRef();
     this.termsAndConditions = React.createRef();
+    this.fileInput = React.createRef();
   }
-
-  handleClick = () => {
-    if (this.selectGenderMale.current?.checked) {
-      console.log('Radio 1 is selected');
-    } else if (this.selectGenderFemale.current?.checked) {
-      console.log('Radio 2 is selected');
-    }
-  };
 
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -77,10 +76,14 @@ class Forms extends Component<FormProps, FormStateInterface> {
       surname: this.surname.current?.value || '',
       email: this.email.current?.value || '',
       dateOfBirth: this.dateOfBirth.current?.value || '',
+      selectGender: this.selectFemale.current?.checked ? 'Female' : 'Male',
+      selectMale: this.selectMale.current?.value || '',
+      selectFemale: this.selectFemale.current?.value || '',
       selectCountry: this.selectCountry.current?.value || '',
-      selectGender: this.selectGenderMale.current?.value || '',
-      selectGenderFemale: this.selectGenderFemale.current?.value || '',
       termsAndConditions: this.termsAndConditions.current?.checked || false,
+      fileInput: this.fileInput.current?.files
+        ? this.fileInput.current?.files[0]
+        : new File([''], 'filename'),
     };
 
     let errorNameMessage = '';
@@ -102,20 +105,15 @@ class Forms extends Component<FormProps, FormStateInterface> {
       dateOfBirth: !formData.dateOfBirth ? errorMessages.dateOfBirth : '',
       email: !formData.email ? errorMessages.email : '',
       selectCountry: formData.selectCountry === 'select' ? errorMessages.selectCountry : '',
-      selectGender: formData.selectGender ? errorMessages.selectGender : '',
+      selectGender: formData.selectGender === '' ? errorMessages.selectGender : '',
       termsAndConditions:
         formData.termsAndConditions === false ? errorMessages.termsAndConditions : '',
+      fileInput: !formData.fileInput ? errorMessages.fileInput : '',
     };
-
-    console.log(Object.values(errors));
-
-    const hasErrors = Object.values(errors).some((error) => error !== '');
-
     if (Object.values(errors).some((error) => error !== '')) {
       this.setState({ errors });
       return;
     }
-
     this.props.uppdateFormState(formData);
     this.setState({
       errors: {
@@ -124,15 +122,13 @@ class Forms extends Component<FormProps, FormStateInterface> {
         email: '',
         dateOfBirth: '',
         selectCountry: '',
-        selectGenderMale: '',
-        selectGenderFemale: '',
+        selectedGender: '',
+        fileInput: '',
         termsAndConditions: '',
       },
     });
   };
-
   render() {
-    console.log(this.state);
     return (
       <section style={{ padding: '74px' }} className={styles.formSection}>
         <div className="container">
@@ -151,16 +147,17 @@ class Forms extends Component<FormProps, FormStateInterface> {
               error={this.state.errors.selectCountry}
             />
             <label>
-              <input type="radio" name="gender" value="male" ref={this.selectGenderMale} />
+              <input type="radio" name="gender" value="Male" ref={this.selectMale} />
               Male
             </label>
             <label>
-              <input type="radio" name="gender" value="female" ref={this.selectGenderFemale} />
+              <input type="radio" name="gender" value="Female" ref={this.selectFemale} />
               Female
             </label>
             {this.state.errors.selectGender && (
               <span className={styles.error}>{this.state.errors.selectGender}</span>
             )}
+            <FileInput fileInputRef={this.fileInput} error={this.state.errors.fileInput} />
             <label>
               <input
                 type="checkbox"
@@ -173,6 +170,7 @@ class Forms extends Component<FormProps, FormStateInterface> {
             {this.state.errors.termsAndConditions && (
               <span className={styles.error}>{this.state.errors.termsAndConditions}</span>
             )}
+
             <input type="submit" value="Submit" />
           </form>
           {Object.values(this.state.errors).some((error) => error !== '') && (

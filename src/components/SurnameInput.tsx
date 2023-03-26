@@ -18,10 +18,13 @@ class SurnameInput extends Component<SurnameInputProps> {
     const { surnameRef, error } = this.props;
     return (
       <div>
-        <label className={styles.searchLabel}>
-          FirstName
-          <input type="text" className={styles.searchInput} ref={surnameRef} name="surname" />
-        </label>
+        <input
+          type="text"
+          placeholder="Surname"
+          className={styles.searchInput}
+          ref={surnameRef}
+          name="surname"
+        />
         {error && <span className={styles.error}>{error}</span>}
       </div>
     );

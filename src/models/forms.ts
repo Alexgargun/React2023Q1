@@ -5,9 +5,11 @@ type FormState = {
   email: string;
   dateOfBirth: string;
   selectCountry: string;
-  selectGenderMale: string;
-  selectGenderFemale: string;
+  selectGender: string;
   termsAndConditions: boolean;
+  selectMale?: string;
+  selectFemale?: string;
+  fileInput: File;
 };
 
 export default FormState;

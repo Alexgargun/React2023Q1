@@ -11,23 +11,27 @@ const FormCard: FC<FormCardProps> = ({ form }) => {
     id,
     name,
     surname,
+    fileInput,
     email,
     dateOfBirth,
     selectCountry,
-    selectGenderMale,
-    selectGenderFemale,
+    selectGender,
     termsAndConditions,
   } = form;
+  const imageUrl = URL.createObjectURL(fileInput);
+  console.log(form.email);
   return (
     <div className={styles.card} key={id}>
-      <ul>
+      <div className={styles.image}>
+        <img src={imageUrl} alt="Preview" />
+      </div>
+      <ul style={{ display: 'block' }}>
         <li>Name: {name}</li>
         <li>Surname: {surname}</li>
         <li>Email: {email}</li>
         <li>Date of Birth: {dateOfBirth}</li>
         <li>Country: {selectCountry}</li>
-        <li>Select gender: {selectGenderMale}</li>
-        <li>Select gender: {selectGenderFemale}</li>
+        <li>Select gender: {selectGender}</li>
         <li>Terms and Conditions accepted: {termsAndConditions ? 'Yes' : 'No'}</li>
       </ul>
     </div>

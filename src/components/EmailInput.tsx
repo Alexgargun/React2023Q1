@@ -8,10 +8,13 @@ interface NameInputProps {
 const EmailInput = ({ emailRef, error }: NameInputProps) => {
   return (
     <div>
-      <label>
-        Email:
-        <input type="email" className={styles.searchInput} ref={emailRef} name="email" />
-      </label>
+      <input
+        type="email"
+        placeholder="email"
+        className={styles.searchInput}
+        ref={emailRef}
+        name="email"
+      />
       {error && <span className={styles.error}>{error}</span>}
     </div>
   );

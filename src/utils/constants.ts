@@ -34,6 +34,7 @@ const errorMessages = {
   selectCountry: 'Please select a country',
   selectGender: 'Please select gender',
   termsAndConditions: 'Please agree to the terms and conditions',
+  fileInput: 'Please upload a file',
 };
 
 export { countries, errorMessages, capitalizeWords };
