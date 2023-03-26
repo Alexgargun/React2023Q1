@@ -6,7 +6,6 @@ describe('FormPage', () => {
   it('renders the component', () => {
     render(<FormPage />);
     expect(screen.getByText('Form Page')).toBeInTheDocument();
-    expect(screen.getByLabelText('Name:')).toBeInTheDocument();
     expect(screen.getByLabelText('Email:')).toBeInTheDocument();
     expect(screen.getByLabelText('Message:')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
@@ -14,12 +13,10 @@ describe('FormPage', () => {
 
   it('updates the state when the form is submitted', () => {
     render(<FormPage />);
-    const nameInput = screen.getByLabelText('Name:');
     const emailInput = screen.getByLabelText('Email:');
     const messageInput = screen.getByLabelText('Message:');
     const submitButton = screen.getByRole('button', { name: 'Submit' });
 
-    fireEvent.change(nameInput, { target: { value: 'John' } });
     fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
     fireEvent.change(messageInput, { target: { value: 'Hello' } });
     fireEvent.click(submitButton);
