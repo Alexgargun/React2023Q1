@@ -1,9 +1,9 @@
 import React from 'react';
-import FormState from '../models/forms';
+import { MyFormData } from '../types/forms';
 import FormCard from '../components/FormCard';
 
 interface DisplayFormProps {
-  formsArray: FormState[];
+  formsArray: MyFormData[];
 }
 
 const DisplayForms: React.FC<DisplayFormProps> = ({ formsArray }) => {

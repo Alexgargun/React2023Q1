@@ -30,14 +30,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   };
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // by clicking on search button / submitting form
-
-    // this.props.getSearchInput(this.state.value);
   };
-
-  // componentWillUnmount(): void {
-  //   localStorage.setItem('search', this.state.value);
-  // }
 
   render() {
     console.log(this.state.value);

@@ -1,34 +1,12 @@
-import React, { Component } from 'react';
-import styles from '../styles/AddFormData.module.css';
+import React from 'react';
 
-type NameInputProps = {
-  inputRef: React.RefObject<HTMLInputElement>;
-  error: string;
+const NameInput = () => {
+  return (
+    <div className="form-group">
+      <label htmlFor="name">Name</label>
+      <input type="text" className="form-control" id="name" placeholder="Enter name" />
+    </div>
+  );
 };
-
-class NameInput extends Component<NameInputProps> {
-  input: React.RefObject<HTMLInputElement>;
-
-  constructor(props: NameInputProps) {
-    super(props);
-    this.input = React.createRef();
-  }
-
-  render() {
-    const { inputRef, error } = this.props;
-    return (
-      <div>
-        <input
-          type="text"
-          placeholder="Firstname"
-          className={styles.searchInput}
-          ref={inputRef}
-          name="name"
-        />
-        {error && <span className={styles.error}>{error}</span>}
-      </div>
-    );
-  }
-}
 
 export default NameInput;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Coffee from 'models/coffee';
+import Coffee from 'types/coffee';
 import SingleItem from './SingleItem';
 
 interface State {

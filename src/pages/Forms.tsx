@@ -1,14 +1,14 @@
-import FormState from '../models/forms';
+import { MyFormData } from '../types/forms';
 import React from 'react';
 import Form from '../components/AddFormData';
 import DisplayForms from '../components/DisplayForms';
-
+import FormLogic from '../components/FormLogic';
 class FormPage extends React.Component {
   state = {
     formsArray: [],
   };
 
-  uppdateFormState = (formData: FormState) => {
+  uppdateFormState = (formData: MyFormData) => {
     this.setState({ formsArray: [...this.state.formsArray, formData] });
     console.log(formData);
   };
@@ -18,8 +18,9 @@ class FormPage extends React.Component {
     return (
       <>
         <h1>Form Page</h1>
-        <Form uppdateFormState={this.uppdateFormState} />
-        <DisplayForms formsArray={this.state.formsArray} />
+        {/* <Form uppdateFormState={this.uppdateFormState} /> */}
+        {/* <DisplayForms formsArray={this.state.formsArray} /> */}
+        <FormLogic />
       </>
     );
   }
