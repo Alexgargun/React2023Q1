@@ -1,15 +1,24 @@
-import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import SearchBar from '../components/SearchBar';
 
 describe('SearchBar component', () => {
-  it('should render the search bar with the initial value and clear the input on click', () => {
-    const { getByPlaceholderText } = render(<SearchBar getSearchInput={() => {}} />);
+  it('should render the search input and button', () => {
+    const { getByPlaceholderText, getByRole } = render(<SearchBar getSearchInput={() => {}} />);
+    const searchInput = getByPlaceholderText('search');
+    const searchButton = getByRole('button');
 
-    expect(getByPlaceholderText('search')).toBeInTheDocument();
-    expect(getByPlaceholderText('search')).toHaveValue('');
+    expect(searchInput).toBeInTheDocument();
+    expect(searchButton).toBeInTheDocument();
+  });
 
-    fireEvent.change(getByPlaceholderText('search'), { target: { value: 'test' } });
-    expect(getByPlaceholderText('search')).toHaveValue('test');
+  it('should call getSearchInput prop when submitting the form', () => {
+    const getSearchInputMock = jest.fn();
+    const { getByRole } = render(<SearchBar getSearchInput={getSearchInputMock} />);
+    const searchButton = getByRole('button');
+
+    fireEvent.click(searchButton);
+
+    expect(getSearchInputMock).toHaveBeenCalledTimes(1);
   });
 });

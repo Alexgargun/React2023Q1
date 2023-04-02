@@ -1,29 +1,19 @@
 import React, { FC } from 'react';
-import FormState from '../models/forms';
+import { MyFormData } from '../types/forms';
 import styles from '../styles/FormCard.module.css';
 
 interface FormCardProps {
-  form: FormState;
+  form: MyFormData;
 }
 
 const FormCard: FC<FormCardProps> = ({ form }) => {
-  const {
-    id,
-    name,
-    surname,
-    fileInput,
-    email,
-    dateOfBirth,
-    selectCountry,
-    selectGender,
-    termsAndConditions,
-  } = form;
-  const imageUrl = URL.createObjectURL(fileInput);
+  const { id, name, surname, selectCountry, selectGender, dateOfBirth, email, image } = form;
+
   console.log(form.email);
   return (
     <div className={styles.card} key={id}>
       <div className={styles.image}>
-        <img src={imageUrl} alt="Preview" />
+        {image && <img src={URL.createObjectURL(image)} alt="Selected Image" />}
       </div>
       <ul style={{ display: 'block' }}>
         <li>Name: {name}</li>
@@ -31,8 +21,7 @@ const FormCard: FC<FormCardProps> = ({ form }) => {
         <li>Email: {email}</li>
         <li>Date of Birth: {dateOfBirth}</li>
         <li>Country: {selectCountry}</li>
-        <li>Select gender: {selectGender}</li>
-        <li>Terms and Conditions accepted: {termsAndConditions ? 'Yes' : 'No'}</li>
+        <li>Gender: {selectGender}</li>
       </ul>
     </div>
   );

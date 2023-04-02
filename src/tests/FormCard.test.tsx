@@ -1,33 +1,33 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import FormCard from 'components/FormCard';
+import FormCard from '../components/FormCard';
 
 describe('FormCard', () => {
-  const mockForm = {
+  const form = {
     id: 1,
     name: 'John',
     surname: 'Doe',
-    fileInput: new File([''], 'filename'),
-    email: 'johndoe@example.com',
-    dateOfBirth: '1990-01-01',
     selectCountry: 'USA',
     selectGender: 'Male',
-    termsAndConditions: true,
+    dateOfBirth: '01/01/1990',
+    email: 'johndoe@example.com',
+    image: null,
   };
 
-  it('should display the form data', () => {
-    const { getByText } = render(<FormCard form={mockForm} />);
+  it('renders correctly', () => {
+    const { getByText } = render(<FormCard form={form} />);
     expect(getByText('Name: John')).toBeInTheDocument();
     expect(getByText('Surname: Doe')).toBeInTheDocument();
     expect(getByText('Email: johndoe@example.com')).toBeInTheDocument();
-    expect(getByText('Date of Birth: 1990-01-01')).toBeInTheDocument();
+    expect(getByText('Date of Birth: 01/01/1990')).toBeInTheDocument();
     expect(getByText('Country: USA')).toBeInTheDocument();
-    expect(getByText('Select gender: Male')).toBeInTheDocument();
-    expect(getByText('Terms and Conditions accepted: Yes')).toBeInTheDocument();
+    expect(getByText('Gender: Male')).toBeInTheDocument();
   });
 
-  it('should display the form image', () => {
-    const { getByAltText } = render(<FormCard form={mockForm} />);
-    expect(getByAltText('Preview')).toBeInTheDocument();
+  it('displays image if provided', () => {
+    const image = new File(['image'], 'test.png', { type: 'image/png' });
+    const formWithImage = { ...form, image };
+    const { getByAltText } = render(<FormCard form={formWithImage} />);
+    expect(getByAltText('Selected Image')).toBeInTheDocument();
   });
 });
