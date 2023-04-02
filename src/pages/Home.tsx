@@ -1,38 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import CardList from '../components/CardList';
-// import capitalizeWords from 'utils/constants';
 
-interface HomeProps {
-  className?: string;
-}
-interface HomeState {
-  searchInput: string;
-}
+function Home() {
+  const [searchInput, setSearchInput] = useState<string>(localStorage.getItem('search') || '');
 
-class Home extends React.Component<HomeProps, HomeState> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      searchInput: localStorage.getItem('search') || '',
-    };
-  }
-
-  getSearchInput = (input: string) => {
-    this.setState({ searchInput: input });
+  const getSearchInput = (input: string) => {
+    setSearchInput(input);
   };
 
-  render() {
-    console.log(this.state.searchInput);
-    return (
-      <>
-        <div className="header-title">
-          <h2>Home Page</h2>
-        </div>
-        <SearchBar getSearchInput={this.getSearchInput} />
-        <CardList searchInput={this.state.searchInput} />
-      </>
-    );
-  }
+  return (
+    <>
+      <div className="header-title">
+        <h2>Home Page</h2>
+      </div>
+      <SearchBar getSearchInput={getSearchInput} />
+      <CardList searchInput={searchInput} />
+    </>
+  );
 }
 export default Home;
