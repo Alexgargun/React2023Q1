@@ -24,9 +24,12 @@ describe('CardList', () => {
       },
     ];
 
-    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce(mockData),
-    } as any);
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce(
+      new Response(JSON.stringify(mockData), {
+        status: 200,
+        headers: { 'Content-type': 'application/json' },
+      })
+    );
 
     const { getByText, getByAltText } = render(<CardList searchInput="" />);
 
@@ -54,9 +57,12 @@ describe('CardList', () => {
       },
     ];
 
-    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce(mockData),
-    } as any);
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce(
+      new Response(JSON.stringify(mockData), {
+        status: 200,
+        headers: { 'Content-type': 'application/json' },
+      })
+    );
 
     const { getByText, queryByText } = render(<CardList searchInput="latte" />);
 

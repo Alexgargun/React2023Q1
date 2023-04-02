@@ -1,5 +1,5 @@
-import React, { FC, FormEvent } from 'react';
-import { FieldValues, set, SubmitHandler, useForm } from 'react-hook-form';
+import React from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styles from '../styles/FormUseForm.module.css';
 import { countries } from '../utils/constants';
 import { MyFormData } from '../types/forms';

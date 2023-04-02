@@ -18,8 +18,6 @@ const CardList: React.FC<CardListProps> = ({ searchInput }) => {
     fetchData();
   }, []);
 
-  console.log(searchInput);
-
   if (data.length === 0) {
     return (
       <div className="section">

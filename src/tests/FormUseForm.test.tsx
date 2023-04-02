@@ -13,7 +13,6 @@ describe('FormUseForm', () => {
     const selectCountry = screen.getByRole('combobox');
     const inputDateOfBirth = screen.getByLabelText('Date of birth');
     const radioMale = screen.getByLabelText('Male');
-    const radioFemale = screen.getByLabelText('Female');
     const checkboxTerms = screen.getByLabelText('I agree to the terms and conditions');
     const buttonSubmit = screen.getByRole('button', { name: 'Submit' });
 
