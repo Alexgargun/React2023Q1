@@ -1,55 +1,47 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Coffee from 'types/coffee';
 import SingleItem from './SingleItem';
-
-interface State {
-  data: Coffee[];
-}
 
 interface CardListProps {
   searchInput: string;
 }
-class CardList extends React.Component<CardListProps, State> {
-  constructor(props: CardListProps) {
-    super(props);
-    this.state = {
-      data: [],
+
+const CardList: React.FC<CardListProps> = ({ searchInput }) => {
+  const [data, setData] = useState<Coffee[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await fetch('https://api.sampleapis.com/coffee/hot');
+      const json = await resp.json();
+      setData(json);
     };
-  }
+    fetchData();
+  }, []);
 
-  async componentDidMount() {
-    const resp = await fetch('https://api.sampleapis.com/coffee/hot');
-    const json = await resp.json();
-    this.setState({ data: json });
-  }
+  console.log(searchInput);
 
-  render() {
-    console.log(this.props.searchInput);
-    if (this.state.data.length === 0) {
-      return (
-        <div className="section">
-          <h2>Loading...</h2>
-        </div>
-      );
-    }
+  if (data.length === 0) {
     return (
-      <>
-        <div className="card">
-          {this.state.data
-            .filter((el) => el.title.includes(this.props.searchInput))
-            .map((item) => (
-              <SingleItem
-                key={item.id}
-                title={item.title}
-                image={item.image}
-                description={item.description}
-              />
-            ))}
-        </div>
-      </>
+      <div className="section">
+        <h2>Loading...</h2>
+      </div>
     );
   }
-}
+
+  return (
+    <div className="card">
+      {data
+        .filter((el) => el.title.toLowerCase().includes(searchInput.toLowerCase()))
+        .map((item) => (
+          <SingleItem
+            key={item.id}
+            title={item.title}
+            image={item.image}
+            description={item.description}
+          />
+        ))}
+    </div>
+  );
+};
 
 export default CardList;

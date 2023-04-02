@@ -1,14 +1,7 @@
 import React, { FC, useState } from 'react';
 import { MyFormData } from 'types/forms';
-import FormUseForm from '../pages/FormUseForm';
+import FormUseForm from './FormUseForm';
 import DisplayForms from './DisplayForms';
-
-// interface MyFormData {
-//   id: number;
-//   name: string;
-//   surname: string;
-//   image: File | null;
-// }
 
 const FormLogic: FC = () => {
   const [formsArray, setFormsArray] = useState<MyFormData[]>([]);
