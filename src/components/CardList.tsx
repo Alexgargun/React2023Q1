@@ -25,6 +25,7 @@ class CardList extends React.Component<CardListProps, State> {
   }
 
   render() {
+    console.log(this.props.searchInput);
     if (this.state.data.length === 0) {
       return (
         <div className="section">

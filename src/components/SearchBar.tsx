@@ -11,44 +11,33 @@ interface SearchBarState {
 }
 
 class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  private formRef = React.createRef<HTMLFormElement>();
-  constructor(props: SearchBarProps, {}) {
+  constructor(props: SearchBarProps) {
     super(props);
 
     this.state = {
-      value: '',
+      value: localStorage.getItem('search') || '',
     };
   }
 
-  componentDidMount(): void {
-    const inputValue = localStorage.getItem('search');
-    if (inputValue) {
-      this.setState({ value: inputValue });
-    }
-  }
-
-  componentDidUpdate(
-    prevProps: Readonly<SearchBarProps>,
-    prevState: Readonly<SearchBarState>
-  ): void {
-    if (prevState.value !== this.state.value) {
-      localStorage.setItem('search', this.state.value);
-    }
-  }
+  getSearchInput = (input: string) => this.props.getSearchInput(input);
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ value: event.target.value });
-    console.log(event.target.value);
+    const inputValue = event.target.value;
+    const capitalizedInput = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    this.getSearchInput(capitalizedInput || ''); // instant search
+    this.setState({ value: capitalizedInput });
+    localStorage.setItem('search', this.state.value);
   };
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    this.props.getSearchInput(this.state.value);
+    // by clicking on search button / submitting form
+
+    // this.props.getSearchInput(this.state.value);
   };
 
-  handleClear = () => {
-    this.setState({ value: '' });
-    this.formRef.current?.reset();
-  };
+  // componentWillUnmount(): void {
+  //   localStorage.setItem('search', this.state.value);
+  // }
 
   render() {
     console.log(this.state.value);
