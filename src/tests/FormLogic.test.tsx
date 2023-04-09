@@ -1,16 +1,18 @@
-// import React from 'react';
-// import { render, fireEvent } from '@testing-library/react';
-// import FormLogic from '../components/FormLogic';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import FormLogic from '../components/FormLogic';
 
-// describe('FormLogic', () => {
-//   test('should add a form to the forms array on form submission', () => {
-//     const { getByText } = render(<FormLogic />);
+describe('FormLogic', () => {
+  test('should add a form to the forms array on form submission', () => {
+    const { getByText, getByLabelText } = render(<FormLogic />);
 
-//     fireEvent.submit(getByText('name'), { target: { value: 'john Doe' } });
-//     fireEvent.submit(getByText('email'), { target: { value: 'johndoe@example.com' } });
-//     fireEvent.click(getByText('Submit'));
+    const emailInput = getByLabelText('email');
+    const submitButton = getByText('Submit');
 
-//     expect(getByText('john Doe')).toBeInTheDocument();
-//     expect(getByText('johndoe@example.com')).toBeInTheDocument();
-//   });
-// });
+    fireEvent.change(emailInput, { target: { value: 'johndoe@example.com' } });
+    fireEvent.click(submitButton);
+
+    expect(getByText('john Doe')).toBeInTheDocument();
+    expect(getByText('johndoe@example.com')).toBeInTheDocument();
+  });
+});

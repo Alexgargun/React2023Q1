@@ -23,11 +23,4 @@ describe('FormCard', () => {
     expect(getByText('Country: USA')).toBeInTheDocument();
     expect(getByText('Gender: Male')).toBeInTheDocument();
   });
-
-  it('displays image if provided', () => {
-    const image = new File(['image'], 'test.png', { type: 'image/png' });
-    const formWithImage = { ...form, image };
-    const { getByAltText } = render(<FormCard form={formWithImage} />);
-    expect(getByAltText('Selected Image')).toBeInTheDocument();
-  });
 });

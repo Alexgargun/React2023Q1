@@ -30,8 +30,6 @@ function FormUseForm({ handleFormSubmit }: FormProps) {
       selectGender: data.selectGender,
       image: data.image[0] || null,
     };
-    console.log(myFormData);
-
     handleFormSubmit(myFormData);
     reset();
   };
@@ -145,7 +143,7 @@ function FormUseForm({ handleFormSubmit }: FormProps) {
             {errors.termsAndConditions.message as React.ReactNode}
           </span>
         )}
-        <button type="submit">Submit</button>
+        <input className={styles.formSubmit} type="submit" />
       </form>
     </section>
   );
