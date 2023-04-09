@@ -18,6 +18,7 @@
 }
 
 input {
+  font-size: 1.2rem;
   padding: 10px;
   border-radius: 5px;
   border: none;
@@ -32,9 +33,19 @@ input[type='submit'] {
   border-radius: 5px;
   border: none;
   outline: none;
-  background-color: #007bff;
   color: #fff;
   cursor: pointer;
+}
+
+select {
+  width: 100%;
+  font-size: 1.2rem;
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .radioGroup input[type='radio'] {
@@ -83,4 +94,22 @@ input[type='date'] {
   color: hwb(219 0% 0%);
   font-size: 12px;
   margin-bottom: 10px;
+}
+
+input:not([type='checkbox']),
+select,
+textarea {
+  width: 100%;
+}
+
+input[type='submit'] {
+  background-color: #007bff;
+  width: 50%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
 }

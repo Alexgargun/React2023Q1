@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Coffee from 'types/coffee';
 import SingleItem from './SingleItem';
+import Spinner from './react-api/Spinner';
 
 interface CardListProps {
   searchInput: string;
@@ -8,23 +9,23 @@ interface CardListProps {
 
 const CardList: React.FC<CardListProps> = ({ searchInput }) => {
   const [data, setData] = useState<Coffee[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const resp = await fetch('https://api.sampleapis.com/coffee/hot');
       const json = await resp.json();
       setData(json);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
 
-  if (data.length === 0) {
-    return (
-      <div className="section">
-        <h2>Loading...</h2>
-      </div>
-    );
+  if (isLoading) {
+    return <Spinner />;
   }
+
+  console.log(data);
 
   return (
     <div className="card">

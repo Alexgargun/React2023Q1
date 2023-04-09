@@ -9,6 +9,8 @@ function Home() {
     setSearchInput(input);
   };
 
+  console.log('searchInput', searchInput);
+
   return (
     <>
       <div className="header-title">

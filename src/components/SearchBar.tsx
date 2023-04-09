@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/SearchBar.module.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 
@@ -7,50 +6,36 @@ interface SearchBarProps {
   getSearchInput: (input: string) => void;
 }
 
-type SearchFormData = {
-  searchInput: string;
-};
-
 const SearchBar: React.FC<SearchBarProps> = ({ getSearchInput }) => {
-  const {
-    register,
-    watch,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SearchFormData>();
-
-  const inputValue = watch('searchInput', '');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('search', inputValue);
-  }, [inputValue]);
-
-  useEffect(() => {
-    const searchInput = localStorage.getItem('search');
-    if (searchInput) {
-      getSearchInput(searchInput);
-      setValue('searchInput', searchInput);
+    const savedSearchTerm = localStorage.getItem('search');
+    if (savedSearchTerm) {
+      setSearchTerm(savedSearchTerm);
+      getSearchInput(savedSearchTerm);
     }
-  }, [getSearchInput, setValue]);
+  }, [getSearchInput]);
 
-  const onSubmit = (data: SearchFormData) => {
-    getSearchInput(data.searchInput || '');
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    getSearchInput(event.target.value);
+    localStorage.setItem('search', event.target.value);
   };
 
   return (
     <section className={styles.formSection}>
       <div className="container">
-        <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.formContainer}>
           <label className={styles.searchLabel}>
             <input
               className={styles.searchInput}
               type="search"
               placeholder={'search'}
-              {...register('searchInput')}
+              onChange={handleInputChange}
+              value={searchTerm}
             />
           </label>
-          {errors.searchInput && <p>{errors.searchInput.message}</p>}
           <button type="submit">
             <AiOutlineSearch className={styles.searchIcon} />
           </button>

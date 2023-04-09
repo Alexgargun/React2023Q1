@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ModalWindow from 'components/react-api/ModalWindow';
 
 interface ItemsCardProps {
   title: string;
@@ -7,14 +8,37 @@ interface ItemsCardProps {
 }
 
 const SingleItem: React.FC<ItemsCardProps> = ({ title, image, description }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <div className="items-card">
-      <h2>{title}</h2>
-      <div className="items-image">
-        <img src={image} alt={title} />
+    <>
+      <ModalWindow
+        isOpen={isOpen}
+        handleModalClose={handleModalClose}
+        title={title}
+        image={image}
+        description={description}
+      />
+      <div className="items-card" onClick={handleModalOpen}>
+        <h2>{title}</h2>
+        <div className="items-image">
+          <img src={image} alt={title} />
+        </div>
+        <p>{description}</p>
       </div>
-      <p>{description}</p>
-    </div>
+    </>
   );
 };
 
